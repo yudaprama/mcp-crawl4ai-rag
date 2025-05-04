@@ -59,8 +59,8 @@ The server provides four essential web crawling and search tools:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/coleam00/mcp-crawlai-rag.git
-   cd mcp-crawlai-rag
+   git clone https://github.com/coleam00/mcp-crawl4ai-rag.git
+   cd mcp-crawl4ai-rag
    ```
 
 2. Build the Docker image:
@@ -74,8 +74,8 @@ The server provides four essential web crawling and search tools:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/coleam00/mcp-crawlai-rag.git
-   cd mcp-crawlai-rag
+   git clone https://github.com/coleam00/mcp-crawl4ai-rag.git
+   cd mcp-crawl4ai-rag
    ```
 
 2. Install uv if you don't have it:
