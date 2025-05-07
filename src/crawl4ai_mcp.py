@@ -238,8 +238,11 @@ async def crawl_single_page(ctx: Context, url: str) -> str:
                 meta["crawl_time"] = str(asyncio.current_task().get_coro().__name__)
                 metadatas.append(meta)
             
+            # Create url_to_full_document mapping
+            url_to_full_document = {url: result.markdown}
+            
             # Add to Supabase
-            add_documents_to_supabase(supabase_client, urls, chunk_numbers, contents, metadatas)
+            add_documents_to_supabase(supabase_client, urls, chunk_numbers, contents, metadatas, url_to_full_document)
             
             return json.dumps({
                 "success": True,
@@ -350,10 +353,15 @@ async def smart_crawl_url(ctx: Context, url: str, max_depth: int = 3, max_concur
                 
                 chunk_count += 1
         
+        # Create url_to_full_document mapping
+        url_to_full_document = {}
+        for doc in crawl_results:
+            url_to_full_document[doc['url']] = doc['markdown']
+        
         # Add to Supabase
         # IMPORTANT: Adjust this batch size for more speed if you want! Just don't overwhelm your system or the embedding API ;)
         batch_size = 20
-        add_documents_to_supabase(supabase_client, urls, chunk_numbers, contents, metadatas, batch_size=batch_size)
+        add_documents_to_supabase(supabase_client, urls, chunk_numbers, contents, metadatas, url_to_full_document, batch_size=batch_size)
         
         return json.dumps({
             "success": True,
